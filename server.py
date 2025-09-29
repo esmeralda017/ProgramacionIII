@@ -1,22 +1,45 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib import parse
+import json 
+import crud_alumno
+
 port = 3000
+
+crudAlumno = crud_alumno.crud_alumno()
+
 class miServidor(SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == "/":
-            self.path = "/index.html"
+        url_parts = parse.urlparse(self.path)
+        path = url_parts.path
+        query_params = parse.parse_qs(url_parts.query)
+        
+        if path == "/":
+            self.path="index.html"
             return SimpleHTTPRequestHandler.do_GET(self)
+            
+        if path == "/alumnos":
+            buscar = ""
+            if 'buscar' in query_params: 
+                buscar = query_params['buscar'][0]
+            
+            alumnos = crudAlumno.consultar(buscar)
+            
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(json.dumps(alumnos).encode('utf-8'))
 
     def do_POST(self):
-        logitud = int(self.headers['Content-Length'])
-        datos = self.rfile.read(logitud)
-
+        longitud = int(self.headers['Content-Length'])
+        datos = self.rfile.read(longitud)
         datos = datos.decode("utf-8")
         datos = parse.unquote(datos)
+        datos = json.loads(datos)
+        resp = {"msg": crudAlumno.administrar(datos)}
+
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(datos.encode("utf-8"))
-     
-print("Iniciando servidor en el puerto 3000")
-server = HTTPServer(("localhost", 3000), miServidor)
+        self.wfile.write(json.dumps(resp).encode("utf-8"))
+
+print("Servidor ejecutandose en el puerto", port)
+server = HTTPServer(("localhost", port), miServidor)
 server.serve_forever()
