@@ -1,0 +1,95 @@
+<form id="frmAlumnos">
+    <div class="card text-bg-dark" style="min-width: 700px;">
+        <div class="card-header">ADMINISTRACION DE ALUMNOS</div>
+        <div class="card-body">
+            <div class="row p-1">
+                <div class="col-3 col-md-2">CODIGO</div>
+                <div class="col-9 col-md-3">
+                    <input required type="text" id="txtCodigoAlumno" name="txtCodigoAlumno" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-3 col-md-2">NOMBRE</div>
+                <div class="col-9 col-md-4">
+                    <input required type="text" id="txtNombreAlumno" name="txtNombreAlumno" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-3 col-md-2">DIRECCION</div>
+                <div class="col-9 col-md-8">
+                    <input required type="text" id="txtDireccionAlumno" name="txtDireccionAlumno" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-3 col-md-2">TELEFONO</div>
+                <div class="col-9 col-md-3">
+                    <input type="text" id="txtTelefonoAlumno" name="txtTelefonoAlumno" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-3 col-md-2">EMAIL</div>
+                <div class="col-9 col-md-4">
+                    <input type="email" id="txtEmailAlumno" name="txtEmailAlumno" class="form-control form-control-sm" />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <input type="submit" id="btnGuardarAlumno" name="btnGuardarAlumno" class="btn btn-primary" value="GUARDAR" />
+            <input type="reset" id="btnNuevoAlumno" name="btnNuevoAlumno" class="btn btn-warning" value="NUEVO" />
+            <input type="button" id="btnBuscarAlumno" name="btnBuscarAlumno" class="btn btn-info" value="BUSCAR" />
+        </div>
+    </div>
+</form>
+<script>
+    var accion = "nuevo",
+        idAlumno = 0;
+    
+    frmAlumnos.addEventListener("submit",e=>{
+        e.preventDefault();
+        guardarAlumnos();
+    });
+    async function guardarAlumnos(){
+        let datos = {
+            accion,
+            idAlumno,
+            codigo: txtCodigoAlumno.value,
+            nombre: txtNombreAlumno.value,
+            direccion: txtDireccionAlumno.value,
+            telefono: txtTelefonoAlumno.value,
+            email: txtEmailAlumno.value
+        };
+        let response = await fetch("/alumnos",{
+            method: "POST",
+            body: JSON.stringify(datos),
+        }), 
+            respuesta = await response.json();
+        if(respuesta.msg!="ok"){
+            alertify.error(`Error al procesar alumno: ${respuesta}`);
+            return;
+        }
+        limpiarFormulario();
+        obtenerAlumnos();
+    }
+    function limpiarFormulario(){
+        accion = "nuevo";
+        idAlumno = 0;
+        txtCodigoAlumno.value = "";
+        txtNombreAlumno.value = "";
+        txtDireccionAlumno.value = "";
+        txtTelefonoAlumno.value = "";
+        txtEmailAlumno.value = "";
+    }
+    function mostrarAlumno(alumno){
+        accion = "modificar";
+        idAlumno = alumno.idAlumno;
+        txtCodigoAlumno.value = alumno.codigo;
+        txtNombreAlumno.value = alumno.nombre;
+        txtDireccionAlumno.value = alumno.direccion;
+        txtTelefonoAlumno.value = alumno.telefono;
+        txtEmailAlumno.value = alumno.email;
+    }
+    btnBuscarAlumno.addEventListener("click", e=>{
+        e.preventDefault();
+        abrirVentana('busqueda_alumnos');
+    });
+</script>

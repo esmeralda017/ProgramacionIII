@@ -1,0 +1,53 @@
+<form id="frmBusquedaAlumnos">
+    <div class="card text-bg-dark">
+        <div class="card-header">BUSQUEDA DE ALUMNOS</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>NOMBRE</th>
+                        <th>DIRECCION</th>
+                        <th>TELEFONO</th>
+                        <th>EMAIL</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tblAlumnos"></tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<script>
+    obtenerAlumnos();
+    async function obtenerAlumnos(){
+        let response = await fetch("/alumnos"), 
+            respuesta = await response.json();
+        mostrarDatosAlumnos(respuesta);
+    }
+    function mostrarDatosAlumnos(alumnos){
+        let filas = "";
+        alumnos.forEach(alumno=>{
+            filas += `
+                <tr onClick='mostrarAlumno(${ JSON.stringify(alumno) })'>
+                    <td>${alumno.codigo}</td>
+                    <td>${alumno.nombre}</td>
+                    <td>${alumno.direccion}</td>
+                    <td>${alumno.telefono}</td>
+                    <td>${alumno.email}</td>
+                    <td><button onClick='eliminarAlumno(${ JSON.stringify(alumno) }, event)' class="btn btn-danger btn-sm">ELIMINAR</button></td>
+                </tr>
+            `;
+        });
+        tblAlumnos.innerHTML = filas;
+    }
+    function eliminarAlumno(alumno, event){
+        event.preventDefault();
+
+        if(confirm(`Esta seguro de eliminar a ${alumno.nombre}`)){
+            idAlumno = alumno.idAlumno;
+            accion = "eliminar";
+            guardarAlumnos();
+        }
+    }
+</script>

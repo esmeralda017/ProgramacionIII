@@ -2,6 +2,9 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib import parse
 import json 
 import crud_alumno
+# [SOLUCIONADO]: Las sentencias import deben ir al inicio del archivo.
+import mysql.connector
+from mysql.connector import Error
 
 port = 3000
 
@@ -32,5 +35,4 @@ class miServidor(SimpleHTTPRequestHandler):
 
 print("Servidor ejecutandose en el puerto", port)
 server = HTTPServer(("localhost", port), miServidor)
-server.serve_forever()import mysql.connector
-from mysql.connector import Error
+server.serve_forever()
