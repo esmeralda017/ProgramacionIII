@@ -1,29 +1,30 @@
 import mysql.connector
+from mysql.connector import Error
 
 class crud:
     def __init__(self):
+        print("Conectando a la base de datos...")
         self.conexion = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="tu_contraseña", 
-            database="db_academica"
+            host='localhost',
+            user='root',
+            password='',
+            database='db_academica'
         )
-        self.cursor = self.conexion.cursor(dictionary=True)
-
+        if self.conexion.is_connected():
+            print("Conexion exitosa a la base de datos")
+        else:
+            print("Error al conectar a la base de datos")
+        
     def consultar(self, sql):
+        cursor = self.conexion.cursor(dictionary=True)
+        cursor.execute(sql)
+        return cursor.fetchall()
+    
+    def ejecutar(self, sql, datos):
         try:
-            self.cursor.execute(sql)
-            return self.cursor.fetchall()
-        except Exception as e:
-            print(f"Error al consultar: {e}")
-            return []
-
-    def ejecutar(self, sql, valores):
-        try:
-            self.cursor.execute(sql, valores)
+            cursor = self.conexion.cursor()
+            cursor.execute(sql, datos)
             self.conexion.commit()
             return "ok"
-        except Exception as e:
-            self.conexion.rollback()
-            print(f"Error al ejecutar: {e}")
-            return f"Error: {e}"
+        except Error as e:
+            return str(e)

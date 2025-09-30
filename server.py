@@ -9,21 +9,11 @@ crudAlumno = crud_alumno.crud_alumno()
 
 class miServidor(SimpleHTTPRequestHandler):
     def do_GET(self):
-        url_parts = parse.urlparse(self.path)
-        path = url_parts.path
-        query_params = parse.parse_qs(url_parts.query)
-        
-        if path == "/":
+        if self.path=="/":
             self.path="index.html"
             return SimpleHTTPRequestHandler.do_GET(self)
-            
-        if path == "/alumnos":
-            buscar = ""
-            if 'buscar' in query_params: 
-                buscar = query_params['buscar'][0]
-            
-            alumnos = crudAlumno.consultar(buscar)
-            
+        if self.path=="/alumnos":
+            alumnos = crudAlumno.consultar("")
             self.send_response(200)
             self.end_headers()
             self.wfile.write(json.dumps(alumnos).encode('utf-8'))
@@ -42,4 +32,5 @@ class miServidor(SimpleHTTPRequestHandler):
 
 print("Servidor ejecutandose en el puerto", port)
 server = HTTPServer(("localhost", port), miServidor)
-server.serve_forever()
+server.serve_forever()import mysql.connector
+from mysql.connector import Error
