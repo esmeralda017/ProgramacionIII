@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Feria de Logros{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Barra superior -->
+  <header class="topbar">
+    <img src="{{ url_for('static', filename='logo_ugb.png') }}" class="logo-top" alt="Logo UGB">
+    <nav>
+      <a href="{{ url_for('login') }}">Inicio</a> |
+      <a href="{{ url_for('historial') }}">Historial</a> |
+      <a href="{{ url_for('ganadores') }}">Ganadores</a>
+      {% if session.usuario %}
+        | <span>Usuario: {{ session.usuario }}</span> | <a href="{{ url_for('logout') }}">Salir</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for m in messages %}
+          <li>{{ m }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

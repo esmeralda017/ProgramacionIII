@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Panel Juez{% endblock %}
+{% block content %}
+<h2>Panel Juez</h2>
+<p>Bienvenido, {{ usuario }}</p>
+
+<h3>Proyectos a evaluar</h3>
+<table class="tabla">
+  <tr><th>Título</th><th>Equipo</th><th>Año</th><th>Acción</th></tr>
+  {% for p in proyectos %}
+    <tr>
+      <td>{{ p.titulo }}</td>
+      <td>{{ p.equipo }}</td>
+      <td>{{ p.anio }}</td>
+      <td><a href="{{ url_for('evaluate_project', project_id=p.id) }}">Evaluar</a></td>
+    </tr>
+  {% endfor %}
+</table>
+
+<a href="{{ url_for('resultados') }}">Ver resultados</a>
+
+{% endblock %}

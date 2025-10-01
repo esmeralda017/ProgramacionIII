@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Ver Proyecto{% endblock %}
+{% block content %}
+<h2>{{ project.titulo }}</h2>
+<p><strong>Equipo:</strong> {{ project.equipo }}</p>
+<p>{{ project.descripcion }}</p>
+
+<h3>Fotos</h3>
+{% for f in files %}
+  <img src="{{ url_for('uploaded_file', filename=f.filename) }}" style="max-width:220px;margin:6px;">
+{% endfor %}
+
+{% if can_view_score %}
+  <h3>Nota promedio del proyecto: {{ promedio if promedio else 'Sin evaluaciones' }}</h3>
+{% else %}
+  <h3>Nota promedio: — (visible solo para miembros del equipo)</h3>
+{% endif %}
+{% endblock %}

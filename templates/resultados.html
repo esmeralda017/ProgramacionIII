@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Resultados{% endblock %}
+{% block content %}
+<h2>Resultados</h2>
+<table class="tabla">
+  <tr><th>Equipo</th><th>Proyecto</th><th>Promedio</th></tr>
+  {% for r in resultados %}
+    <tr><td>{{ r.equipo }}</td><td>{{ r.titulo }}</td><td>{{ '%.2f'|format(r.promedio) }}</td></tr>
+  {% endfor %}
+</table>
+
+<form method="post" action="{{ url_for('publicar_ganadores') }}">
+  <button type="submit">Publicar ganadores (Top 3)</button>
+</form>
+{% endblock %}

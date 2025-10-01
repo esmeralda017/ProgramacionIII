@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Evaluar Proyecto{% endblock %}
+{% block content %}
+<h2>Evaluar: {{ proyecto.titulo }}</h2>
+<p><strong>Equipo:</strong> {{ proyecto.equipo }}</p>
+<form method="post">
+  {% for c in criterios %}
+    <label>{{ c.descripcion }} (peso {{ c.peso }}):</label>
+    <input type="number" name="criterio_{{ c.id }}" min="0" max="10" step="0.1" required><br>
+  {% endfor %}
+  <button type="submit">Guardar evaluación</button>
+</form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Ganadores{% endblock %}
+{% block content %}
+<h2>Ganadores</h2>
+{% if not publicar %}
+  <p>Los jueces aún no han publicado los ganadores.</p>
+{% else %}
+  <img src="{{ url_for('static', filename='podio.png') }}" class="podio">
+  <ol>
+    {% for w in winners %}
+      <li>{{ w.puesto }}º - {{ w.equipo }} / {{ w.titulo }} ({{ w.anio }})</li>
+    {% endfor %}
+  </ol>
+{% endif %}
+{% endblock %}

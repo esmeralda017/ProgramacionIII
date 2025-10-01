@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Editar Proyecto{% endblock %}
+{% block content %}
+<h2>Editar Proyecto (Equipo {{ team_id }})</h2>
+<form method="post" enctype="multipart/form-data">
+  <label>Título</label><input name="titulo" value="{{ project.titulo if project else '' }}" required>
+  <label>Descripción</label><textarea name="descripcion" required>{{ project.descripcion if project else '' }}</textarea>
+  <label>Subir fotos (varias)</label><input type="file" name="photos" multiple>
+  <button type="submit">Guardar</button>
+</form>
+
+{% if files %}
+  <h3>Fotos</h3>
+  {% for f in files %}
+    <img src="{{ url_for('uploaded_file', filename=f.filename) }}" style="max-width:200px;margin:6px;">
+  {% endfor %}
+{% endif %}
+{% endblock %}

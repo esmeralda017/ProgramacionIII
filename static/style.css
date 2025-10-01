@@ -1,0 +1,154 @@
+/* ------------------- ESTILOS GENERALES ------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f9fb;
+    color: #222;
+}
+
+.container {
+    padding: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #003366;
+}
+
+/* ------------------- NAVBAR SUPERIOR ------------------- */
+.topbar {
+    background: #003366;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-top {
+    width: 60px;
+}
+
+.topbar nav a {
+    color: #fff;
+    margin: 0 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.topbar nav a:hover {
+    text-decoration: underline;
+}
+
+/* ------------------- LOGIN PAGE ------------------- */
+.login-body {
+    background: url("fondo.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-card {
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    width: 380px;
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.8);
+}
+
+.login-card .logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.login-card input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+.login-card button {
+    width: 92%;
+    padding: 12px;
+    background: #0288D1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.login-card button:hover {
+    background: #0277BD;
+}
+
+/* Mensajes de error */
+.error {
+    color: #ffdddd;
+    background: #a94442;
+    padding: 6px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* ------------------- BOTONES ------------------- */
+.btn {
+    display: inline-block;
+    background: #2b7aee;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.btn:hover {
+    background: #1a5ac9;
+}
+
+/* ------------------- TABLAS ------------------- */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla th, .tabla td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.tabla th {
+    background: #003366;
+    color: white;
+}
+
+/* ------------------- FLASH MESSAGES ------------------- */
+.flashes {
+    list-style: none;
+    padding: 0;
+}
+
+.flashes li {
+    background: #fffae6;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-left: 4px solid #ffd54a;
+}
+
+/* ------------------- PODIO (GANADORES) ------------------- */
+.podio {
+    width: 300px;
+    display: block;
+    margin: 20px auto;
+}

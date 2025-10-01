@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Historial{% endblock %}
+{% block content %}
+<h2>Historial de ferias</h2>
+{% for anio, datos in historial.items() %}
+  <section>
+    <h3>{{ anio }}</h3>
+    <h4>Proyectos</h4>
+    <ul>
+      {% for p in datos.proyectos %}
+        <li>{{ p.equipo }} - {{ p.titulo }}</li>
+      {% endfor %}
+    </ul>
+    <h4>Ganadores</h4>
+    {% if datos.ganadores %}
+      <ol>
+      {% for g in datos.ganadores %}
+        <li>{{ g.puesto }}º - {{ g.equipo }} - {{ g.titulo }}</li>
+      {% endfor %}
+      </ol>
+    {% else %}
+      <p>No se registraron ganadores.</p>
+    {% endif %}
+  </section>
+{% endfor %}
+{% endblock %}

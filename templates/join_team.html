@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Unirse a Equipo{% endblock %}
+{% block content %}
+<h2>Unirse a un equipo</h2>
+<form method="post">
+  <label>Código del equipo</label><input name="codigo" required>
+  <label>Usuario que se unirá (tu usuario o de un compañero ya registrado)</label><input name="usuario_buscar" required>
+  <button type="submit">Buscar y solicitar unión</button>
+</form>
+{% endblock %}

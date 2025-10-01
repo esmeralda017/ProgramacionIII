@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<div class="login-card">
+  <h2>Registro</h2>
+  <form method="post">
+    <input name="usuario" placeholder="Usuario" required>
+    <input name="password" type="password" placeholder="Contraseña" required>
+    <select name="rol">
+      <option value="participante">Participante</option>
+      <option value="juez">Juez</option>
+    </select>
+    <button type="submit">Crear cuenta</button>
+  </form>
+</div>
+{% endblock %}

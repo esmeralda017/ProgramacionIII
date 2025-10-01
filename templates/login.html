@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="login-card">
+  <img src="{{ url_for('static', filename='logo_ugb.png') }}" class="logo" alt="Logo">
+  <h1>Feria de Logros - Iniciar Sesión</h1>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post">
+    <input name="usuario" placeholder="Usuario" required>
+    <input name="password" type="password" placeholder="Contraseña" required>
+    <button type="submit">Entrar</button>
+  </form>
+  <p><a href="{{ url_for('register') }}">Registrarse</a></p>
+</div>
+{% endblock %}

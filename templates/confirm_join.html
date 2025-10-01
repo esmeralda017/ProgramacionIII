@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Confirmar Unión{% endblock %}
+{% block content %}
+<h2>Confirmar unión</h2>
+<p>Vas a unir al usuario <b>{{ username }}</b> al equipo con código <b>{{ codigo }}</b>.</p>
+<form method="post">
+  <label>Ingresa la contraseña del equipo</label><input name="team_password" required>
+  <button type="submit">Confirmar y unirme</button>
+</form>
+{% endblock %}
